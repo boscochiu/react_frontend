@@ -1,7 +1,7 @@
 npm install react-routher-dom
 cd react_frontend
 npm install
-npm run dev
+npm run dev/npm start
 
 ## Learn More
 
