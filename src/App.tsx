@@ -1,26 +1,104 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Navigate
+} from "react-router-dom";
 
-function App() {
+import Login from "./components/Login";
+import Register from "./components/Register";
+import Home from "./components/Home";
+import Favorites from "./components/Favorites";
+import Messages from "./components/Messages";
+import AdminMessages from "./components/AdminMessages";
+
+const App: React.FC = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
+  const [checkingAuth, setCheckingAuth] = useState<boolean>(true);
+
+  // ✅ 每次啟動都重新檢查 token
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+
+    if (!token) {
+      setIsLoggedIn(false);
+      setCheckingAuth(false);
+      return;
+    }
+
+    // ✅ 可選：驗證 token（簡單版本）
+    setIsLoggedIn(true);
+    setCheckingAuth(false);
+  }, []);
+
+  if (checkingAuth) {
+    return <div>Loading...</div>;
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+
+        {/* Login */}
+        <Route
+          path="/"
+          element={
+            isLoggedIn
+              ? <Navigate to="/home" replace />
+              : <Login setIsLoggedIn={setIsLoggedIn} />
+          }
+        />
+
+        {/* Register */}
+        <Route path="/register" element={<Register />} />
+
+        {/* Home */}
+        <Route
+          path="/home"
+          element={
+            isLoggedIn
+              ? <Home setIsLoggedIn={setIsLoggedIn} />
+              : <Navigate to="/" replace />
+          }
+        />
+
+        {/* Favorites */}
+        <Route
+          path="/favorites"
+          element={
+            isLoggedIn
+              ? <Favorites />
+              : <Navigate to="/" replace />
+          }
+        />
+
+        {/* Messages */}
+        <Route
+          path="/messages"
+          element={
+            isLoggedIn
+              ? <Messages />
+              : <Navigate to="/" replace />
+          }
+        />
+
+        {/* Admin */}
+        <Route
+          path="/admin/messages"
+          element={
+            isLoggedIn
+              ? <AdminMessages />
+              : <Navigate to="/" replace />
+          }
+        />
+
+        {/* ✅ 強制未知路徑回 Login */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;
