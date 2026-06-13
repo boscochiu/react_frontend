@@ -18,7 +18,7 @@ const Favorites: React.FC = () => {
 
   const token = localStorage.getItem("token");
 
-  // ✅ 如果沒有登入直接跳回首頁
+
   useEffect(() => {
     if (!token) {
       navigate("/");
@@ -26,7 +26,7 @@ const Favorites: React.FC = () => {
     }
   }, [token, navigate]);
 
-  // ✅ 讀取收藏（使用 JOIN 後會有 title/genre/year）
+
   const fetchFavorites = async () => {
     try {
       const res = await fetch("http://localhost:5000/api/favorites", {
@@ -55,7 +55,7 @@ const Favorites: React.FC = () => {
     }
   }, [token]);
 
-  // ✅ 移除收藏（真正刪除資料庫）
+
   const removeFavorite = async (id: number) => {
     if (!window.confirm("確定要移除嗎？")) return;
 
@@ -71,7 +71,7 @@ const Favorites: React.FC = () => {
       );
 
       if (res.ok) {
-        // ✅ 同步更新畫面
+
         setFavorites((prev) =>
           prev.filter((movie) => movie.id !== id)
         );
