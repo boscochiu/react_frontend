@@ -1,38 +1,112 @@
-.App {
-  text-align: center;
-}
+/* ===== 戲院主背景 ===== */
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
+.theater-background {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background: linear-gradient(to bottom, #0f0f14, #1a1f2b);
+  position: relative;
+  color: #e0e0e0;
+  padding: 40px;
+  overflow-x: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+/* ===== 幕布動畫 ===== */
+
+.curtain {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: linear-gradient(to bottom, #1a1f2b, transparent);
+  animation: curtainFade 2s ease-in-out forwards;
 }
 
-@keyframes App-logo-spin {
+@keyframes curtainFade {
   from {
-    transform: rotate(0deg);
+    transform: translateY(0);
   }
   to {
-    transform: rotate(360deg);
+    transform: translateY(-120px);
   }
+}
+
+/* ===== Header（左 / 中 / 右 排列） ===== */
+
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+}
+
+/* 左邊 */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 200px;
+}
+
+/* 右邊 */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 250px;
+  justify-content: flex-end;
+}
+
+/* 標題置中 */
+.theater-title {
+  flex: 1;
+  text-align: center;
+  font-size: 26px;
+  letter-spacing: 2px;
+  color: #c6b27a;
+}
+
+/* ===== 電影列表排列 ===== */
+
+.ticket-container {
+  display: flex;
+  gap: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* ===== 電影卡片 ===== */
+
+.ticket-card {
+  width: 250px;
+  background-color: #1f2430;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.6);
+  transition: 0.3s;
+}
+
+.ticket-card:hover {
+  transform: translateY(-8px);
+}
+
+.poster {
+  width: 100%;
+  height: 375px;
+  background: linear-gradient(135deg, #2c3344, #1a1f2b);
+}
+
+.ticket-info {
+  padding: 20px;
+  border-top: 1px dashed #c6b27a;
+}
+
+.ticket-info p {
+  margin: 0;
+  font-weight: bold;
+  margin-bottom: 8px;
+}
+
+.ticket-info span {
+  font-size: 14px;
+  color: #b0b0b0;
 }
