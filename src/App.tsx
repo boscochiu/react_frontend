@@ -17,7 +17,6 @@ const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);
   const [checkingAuth, setCheckingAuth] = useState<boolean>(true);
 
-  // ✅ 每次啟動都重新檢查 token
   useEffect(() => {
     const token = localStorage.getItem("token");
 
@@ -27,7 +26,7 @@ const App: React.FC = () => {
       return;
     }
 
-    // ✅ 可選：驗證 token（簡單版本）
+  
     setIsLoggedIn(true);
     setCheckingAuth(false);
   }, []);
